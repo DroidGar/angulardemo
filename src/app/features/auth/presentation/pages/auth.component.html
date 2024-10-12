@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="title">Login Form</div>
+  <div class="subtitle">Angular Demo</div>
+  <div class="form-container">
+    <form class="form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-group" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" id="email" formControlName="email" class="form-control" matInput>
+        <mat-error *ngIf="authForm.get('email')?.touched && authForm.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="authForm.get('email')?.touched && authForm.get('email')?.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="authForm.get('email')?.touched && authForm.get('email')?.hasError('forbiddenEmail')">
+          This email is not allowed
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-group" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" id="password" formControlName="password" class="form-control" matInput>
+        <mat-error *ngIf="authForm.get('password')?.touched && authForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="authForm.get('password')?.touched && authForm.get('password')?.hasError('minlength')">
+          Password must be at least 6 characters long
+        </mat-error>
+      </mat-form-field>
+      <mat-error *ngIf="invalidAuthCredentials">
+        Invalid username or password
+      </mat-error>
+      <button mat-flat-button type="submit" [disabled]="authForm.invalid" class="login-btn">Login</button>
+    </form>
+  </div>
+</div>
