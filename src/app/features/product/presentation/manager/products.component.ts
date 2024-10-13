@@ -63,7 +63,7 @@ export class ProductsComponent {
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.loadCategories().then();
     this.loadProducts().then();
   }
@@ -71,7 +71,6 @@ export class ProductsComponent {
   async loadCategories(): Promise<void> {
     let result = await this.getAllCategories.execute();
     if (result instanceof Failure) {
-      console.error('ProductsComponent: Error', result);
       return;
     }
     this.categories.push(...result);
@@ -81,14 +80,14 @@ export class ProductsComponent {
     let category = this.selectedCategory == 'All' ? undefined : this.selectedCategory;
     let result = await this.getAllProducts.execute(this.selectedLimit, category);
     if (result instanceof Failure) {
-      console.error('ProductsComponent: Error', result);
+      this.dataSource = [];
       return;
     }
     this.dataSource = result;
   }
 
   async onShowDetail(product: Product): Promise<void> {
-    let dialogRef = this.dialog.open(ProductComponent, {
+    this.dialog.open(ProductComponent, {
       width: '600px',
       data: product
     });
@@ -107,9 +106,8 @@ export class ProductsComponent {
   async onLogout() {
     let result = await this.logout.execute();
     if (result instanceof Failure) {
-      console.error('ProductsComponent: Error', result);
       return;
     }
-    this.router.navigate(['/auth']).then();
+    await this.router.navigate(['/auth']);
   }
 }

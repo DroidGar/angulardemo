@@ -33,19 +33,21 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.authForm = this.formBuilder.group({
-      email: ['user@demo.com', [Validators.required, Validators.email]],
-      password: ['123456', [Validators.required, Validators.minLength(6)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   async onSubmit(): Promise<void> {
-    this.invalidAuthCredentials = false;
-    let credentials = CredentialsModel.fromFormGroup(this.authForm);
-    let result = await this.login.execute(credentials);
-    if (result instanceof Failure) {
-      this.invalidAuthCredentials = true;
-      return;
+    if (this.authForm.invalid) {
+      this.invalidAuthCredentials = false;
+      let credentials = CredentialsModel.fromFormGroup(this.authForm);
+      let result = await this.login.execute(credentials);
+      if (result instanceof Failure) {
+        this.invalidAuthCredentials = true;
+        return;
+      }
+      this.router.navigate(['/products']);
     }
-    this.router.navigate(['/products']).then();
   }
 }

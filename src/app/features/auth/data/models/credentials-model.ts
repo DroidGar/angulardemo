@@ -18,4 +18,8 @@ export class CredentialsModel extends Credentials {
       password: this.password
     }
   }
+
+  static fromJson(json: any): Credentials {
+    return new CredentialsModel(json.email, json.password);
+  }
 }

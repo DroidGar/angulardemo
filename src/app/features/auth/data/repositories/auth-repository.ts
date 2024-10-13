@@ -1,18 +1,14 @@
 import {Failure} from '../../../../core/failure/failure';
 import {AuthRepositoryBase} from '../../domain/repositories/auth-repository-base';
-import {AuthRemoteDataSourceBase} from '../datasource/auth-remote-data-source';
+import {AuthRemoteDataSource} from '../datasource/auth-remote-data-source';
 import {UnhandledFailure} from '../../../../core/failure/unhandled-failure';
 import {Injectable} from '@angular/core';
 import {Credentials} from '../../domain/entity/credentials';
-import {AuthLocalDataSourceBase} from '../datasource/auth-local-data-source';
+import {AuthLocalDataSource} from '../datasource/auth-local-data-source';
 
-@Injectable(
-  {
-    providedIn: 'root'
-  }
-)
+@Injectable({providedIn: 'root'})
 export class AuthRepository implements AuthRepositoryBase {
-  constructor(private remote: AuthRemoteDataSourceBase, private local: AuthLocalDataSourceBase) {
+  constructor(private remote: AuthRemoteDataSource, private local: AuthLocalDataSource) {
   }
 
   async logout(): Promise<Failure | void> {

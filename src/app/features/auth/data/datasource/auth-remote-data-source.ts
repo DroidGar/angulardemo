@@ -1,26 +1,19 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {firstValueFrom} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {ProductRemoteDataSource} from '../../../product/data/datasources/product-remote-data-source';
 import {Credentials} from '../../domain/entity/credentials';
 
-@Injectable({
-  providedIn: 'root',
-  // @ts-ignore
-  useClass: AuthRemoteDataSource
-})
-export abstract class AuthRemoteDataSourceBase {
-  abstract login(credentials: Credentials): Promise<string>;
+export interface AuthRemoteDataSourceBase {
+  login(credentials: Credentials): Promise<string>;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthRemoteDataSource extends AuthRemoteDataSourceBase {
+export class AuthRemoteDataSource implements AuthRemoteDataSourceBase {
   private apiUrl = 'https://api.example.com';
 
   constructor(private http: HttpClient) {
-    super();
   }
 
   async login(credentials: Credentials): Promise<string> {

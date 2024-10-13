@@ -2,7 +2,7 @@ import {ProductRepositoryBase} from '../../domain/repositories/product-repositor
 import {Failure} from '../../../../core/failure/failure';
 import {Product} from '../../domain/entity/product';
 import {Injectable} from '@angular/core';
-import {ProductRemoteDataSourceBase} from '../datasources/product-remote-data-source';
+import {ProductRemoteDataSource, ProductRemoteDataSourceBase} from '../datasources/product-remote-data-source';
 import {UnhandledFailure} from '../../../../core/failure/unhandled-failure';
 
 @Injectable({
@@ -10,20 +10,12 @@ import {UnhandledFailure} from '../../../../core/failure/unhandled-failure';
 })
 export class ProductRepository implements ProductRepositoryBase {
 
-  constructor(protected remote: ProductRemoteDataSourceBase) {
+  constructor(protected remote: ProductRemoteDataSource) {
   }
 
   async getAll(limit: number, category: string | undefined): Promise<Failure | Product[]> {
     try {
       return this.remote.getProducts(limit, category);
-    } catch (e: any) {
-      return new UnhandledFailure(e.message);
-    }
-  }
-
-  async getById(id: number): Promise<Failure | Product> {
-    try {
-      return this.remote.getProductById(id);
     } catch (e: any) {
       return new UnhandledFailure(e.message);
     }

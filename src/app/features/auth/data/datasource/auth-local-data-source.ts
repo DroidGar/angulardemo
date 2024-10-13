@@ -1,35 +1,29 @@
 import {StorageService} from '../../../../core/services/storage.service';
 import {Injectable} from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-  // @ts-ignore
-  useClass: AuthLocalDataSource
-})
-export abstract class AuthLocalDataSourceBase {
-  abstract saveToken(token: string): void;
+export interface AuthLocalDataSourceBase {
+  saveToken(token: string): void;
 
-  abstract getToken(): string | null;
+  getToken(): string | null;
 
-  abstract removeToken(): void;
+  removeToken(): void;
 }
 
-@Injectable({ providedIn: 'root' })
-export class AuthLocalDataSource extends AuthLocalDataSourceBase {
+@Injectable({providedIn: 'root'})
+export class AuthLocalDataSource implements AuthLocalDataSourceBase {
 
   constructor(private storage: StorageService) {
-    super();
   }
 
-  override saveToken(token: string): void {
+  saveToken(token: string): void {
     this.storage.set('token', token);
   }
 
-  override getToken(): string | null{
+  getToken(): string | null {
     return this.storage.get('token');
   }
 
-  override removeToken(): void {
+  removeToken(): void {
     this.storage.remove('token');
   }
 }

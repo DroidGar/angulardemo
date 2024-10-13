@@ -12,7 +12,8 @@ import {MatButton} from '@angular/material/button';
     MatButton
   ],
   templateUrl: '../pages/product.component.html',
-  styleUrl: '../pages/product.component.css'
+  styleUrl: '../pages/product.component.css',
+  providers: [Dialog]
 })
 export class ProductComponent {
   dialogRef = inject(DialogRef);
