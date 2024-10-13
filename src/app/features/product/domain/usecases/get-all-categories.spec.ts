@@ -9,7 +9,7 @@ import {GetAllCategories} from './get-all-categories';
 describe('GetAllCategories', () => {
 
   let getAll: GetAllCategories
-  let repository: jasmine.SpyObj<ProductRepositoryBase>
+  let repository: jasmine.SpyObj<ProductRepository>
 
   beforeEach(() => {
     repository = jasmine.createSpyObj('ProductRepository', ['getCategories']);

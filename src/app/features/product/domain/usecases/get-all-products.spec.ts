@@ -1,4 +1,3 @@
-import {ProductRepositoryBase} from '../repositories/product-repository-base';
 import {GetAllProducts} from './get-all-products';
 import {Product} from '../entity/product';
 import {ProductRepository} from '../../data/repositories/product-repository';
@@ -8,7 +7,7 @@ import {UnhandledFailure} from '../../../../core/failure/unhandled-failure';
 describe('GetAllProducts', () => {
 
   let getAll: GetAllProducts
-  let repository: jasmine.SpyObj<ProductRepositoryBase>
+  let repository: jasmine.SpyObj<ProductRepository>
 
   beforeEach(() => {
     repository = jasmine.createSpyObj('ProductRepository', ['getAll']);
