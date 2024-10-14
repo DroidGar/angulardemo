@@ -1,5 +1,9 @@
 # Prueba Angular
 
+
+## to run
+`ng serve`
+
 ## to run tests
 `ng test`
 
