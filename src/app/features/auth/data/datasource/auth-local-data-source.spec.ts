@@ -9,7 +9,6 @@ describe('AuthLocalDataSource', () => {
     local = TestBed.inject(AuthLocalDataSource);
   })
 
-  // tear down
   afterEach(() => {
     local.removeToken();
   })

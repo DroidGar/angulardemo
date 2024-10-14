@@ -20,6 +20,7 @@ export class CredentialsModel extends Credentials {
   }
 
   static fromJson(json: any): Credentials {
+
     return new CredentialsModel(json.email, json.password);
   }
 }
